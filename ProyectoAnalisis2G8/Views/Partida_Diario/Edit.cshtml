@@ -1,0 +1,314 @@
+﻿@model ProyectoAnalisis2G8.Models.Partida_Diario
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
+
+    <div class="card shadow mb-4 w-auto">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">
+                Editar Partida de Diario
+                <button type="button" class="btn btn-warning" style="float: right;" onclick="location.href='@Url.Action("Index", "Partida_Diario")'">Regresar</button>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Partidade de Diario @Html.DisplayFor(model => model.correlativo)</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id_partida)
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="correlativo">
+                        Correlativo
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.correlativo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.correlativo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="num_documento">
+                        Número de documento
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.num_documento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.num_documento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="fecha">
+                        Fecha
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="descripcion">
+                        Descripción
+                    </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr>
+                <div class="card  mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                            <table class="table table-bordered display"
+                                   id="newAccItemDetails"
+                                   width="100%"
+                                   cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Cuenta</th>
+                                        <th>Nombre de cuenta</th>
+                                        <th>Documento</th>
+                                        <th>Debe</th>
+                                        <th>Haber</th>
+                                        <th>Acción</th>
+
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th><button type="button" class="btn btn-success" id="newLine" onclick="$('#searchAccount').modal('show');">Nueva Linea</button></th>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th><span id="totalDebe">0.00</span></th>
+                                        <th><span id="totalHaber">0.00</span></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach (var item in ViewBag.detailsPartida)
+                                    {
+                                        <tr>
+                                            @foreach (var item2 in ViewBag.nomenclatura) {
+
+
+                                              if (item.id_cuenta == item2.id_cuenta) { 
+                                            <td> @item2.num_cuenta </td>
+                                            <td>@item2.nombre_cuenta </td>
+                                            }}
+                                            <td><input class="form-control text-box single-line" type="text" id="docNumber" name="fname"></td>
+                                            <td><input class="form-control text-box single-line" type="text" onchange="calculateDebe() " id="txtDebe" name="fname" value="@item.debe"></td>
+                                            <td><input class="form-control text-box single-line" type="text" id="txtHaber" onchange="calculateHaber()" name="fname" value="@item.haber"></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="deleteRow2(this)">Borrar</button>
+                                            </td>
+                                            <td style="display:none;">@item.id_cuenta</td>
+                                        </tr>
+
+                                    }
+
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divHiddens">
+
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-success" onclick="submit2(); return false;">Guardar</button>
+                    </div>
+                </div>
+            </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-lg" id="searchAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Agregar cuenta
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                            <table class="table table-bordered display"
+                                   id="accItemTable"
+                                   width="100%"
+                                   cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Número de cuenta
+                                        </th>
+                                        <th>
+                                            Nombre de cuenta
+                                        </th>
+                                        <th>
+                                            Descripción
+                                        </th>
+                                        <th>
+                                            Tipo de cuenta
+                                        </th>
+                                        <th>
+                                            Nivel
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.nomenclatura)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.num_cuenta
+                                            </td>
+                                            <td>
+                                                @item.nombre_cuenta
+                                            </td>
+                                            <td>
+                                                @item.descripcion
+                                            </td>
+                                            <td>
+                                                @item.tipo_cuenta
+                                            </td>
+                                            <td>
+                                                @item.nivel
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addRow('@item.id_cuenta','@item.num_cuenta','@item.nombre_cuenta')">Agregar</button>
+
+
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    function addRow(idAcc, numAcc, nameAcc) {
+
+        $('#newAccItemDetails tbody').append('<tr><td>' + numAcc + '</td><td>' + nameAcc + '</td><td><input class="form-control text-box single-line" type="text" id="docNumber" name="fname"></td><td><input class="form-control text-box single-line" type="text" onchange="calculateDebe() "id="txtDebe" name="fname"></td><td><input class="form-control text-box single-line" type="text" id="txtHaber"  onchange="calculateHaber()" name="fname"></td><td> <button type="button" class="btn btn-danger" onclick="deleteRow2(this)">Borrar</button></td><td style="display:none;">' + idAcc + '</td></tr>');
+    };
+
+    function deleteRow2(obj) {
+
+        $(obj).closest('tr').remove();
+        calculateHaber()
+        calculateDebe()
+    };
+
+
+    function calculateHaber() {
+
+        var table = document.getElementById("newAccItemDetails"), sumVal = 0;
+
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            if (!isNaN(parseFloat(table.rows[i].cells[4].getElementsByTagName("input")[0].value))) {
+                sumVal = sumVal + parseFloat(table.rows[i].cells[4].getElementsByTagName("input")[0].value);
+            }
+        }
+
+        sumVal = sumVal.toFixed(2)
+
+
+        document.getElementById("totalHaber").innerHTML = sumVal;
+    };
+
+
+    function calculateDebe() {
+
+        var table = document.getElementById("newAccItemDetails"), sumVal = 0;
+
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            if (!isNaN(parseFloat(table.rows[i].cells[3].getElementsByTagName("input")[0].value))) {
+                sumVal = sumVal + parseFloat(table.rows[i].cells[3].getElementsByTagName("input")[0].value);
+            }
+        }
+        sumVal = sumVal.toFixed(2)
+
+
+        document.getElementById("totalDebe").innerHTML = sumVal;
+
+    };
+
+
+    function submit2() {
+
+        generateList();
+        document.getElementById("form-data").submit();
+
+    }
+    var num = 0;
+    function generateList() {
+        var table = document.getElementById("newAccItemDetails");
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            num = i - 1;
+            let DivHiddens = document.getElementById("divHiddens");
+            let HiddenIndex = document.createElement("input");
+            let HiddenIdCuenta = document.createElement("input");
+            let HiddenDebe = document.createElement("input");
+            let HiddenHaber = document.createElement("input");
+            HiddenIndex.name = "Detalle_Partida_Diario.Index";
+            HiddenIndex.value = num;
+            HiddenIndex.type = "hidden";
+            HiddenIdCuenta.name = "Detalle_Partida_Diario[" + num + "].id_cuenta";
+            HiddenIdCuenta.value = table.rows[i].cells[6].innerHTML;
+            HiddenIdCuenta.type = "hidden";
+            HiddenDebe.name = "Detalle_Partida_Diario[" + num + "].debe";
+            HiddenDebe.value = parseFloat(table.rows[i].cells[3].getElementsByTagName("input")[0].value);
+            HiddenDebe.type = "hidden";
+            HiddenHaber.name = "Detalle_Partida_Diario[" + num + "].haber";
+            HiddenHaber.value = parseFloat(table.rows[i].cells[4].getElementsByTagName("input")[0].value);
+            HiddenHaber.type = "hidden";
+            DivHiddens.appendChild(HiddenIndex);
+            DivHiddens.appendChild(HiddenIdCuenta);
+            DivHiddens.appendChild(HiddenDebe);
+            DivHiddens.appendChild(HiddenHaber);
+
+        };
+
+
+    };
+
+</script>

@@ -1,0 +1,51 @@
+﻿@model ProyectoAnalisis2G8.Models.Detalle_Partida_Diario
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Detalle_Partida_Diario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.debe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.debe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.haber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.haber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nomenclatura.num_cuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nomenclatura.num_cuenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Partida_Diario.correlativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Partida_Diario.correlativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

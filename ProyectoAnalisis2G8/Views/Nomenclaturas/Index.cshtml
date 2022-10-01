@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ProyectoAnalisis2G8.Models.Nomenclatura>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Nomenclatura contable</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">
+                Listado de Cuentas
+                <button type="button" class="btn btn-success" style="float: right;" onclick="location.href='@Url.Action("Create", "Nomenclaturas")'">Nueva Cuenta</button>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive ">
+                <table class="table table-bordered display"
+                       id="accItemTable"
+                       width="100%"
+                       cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Número de cuenta
+                            </th>
+                            <th>
+                                Nombre de cuenta
+                            </th>
+                            <th>
+                                Descripción
+                            </th>
+                            <th>
+                                Tipo de cuenta
+                            </th>
+                            <th>
+                                Nivel
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.num_cuenta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombre_cuenta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tipo_cuenta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nivel)
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Nomenclaturas", new { id = item.id_cuenta })'">Editar</button>
+                                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Nomenclaturas", new { id = item.id_cuenta })'">Detalles</button>
+                                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Nomenclaturas", new { id = item.id_cuenta })'">Borrar</button>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

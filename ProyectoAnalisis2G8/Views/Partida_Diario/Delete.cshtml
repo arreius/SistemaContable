@@ -1,0 +1,81 @@
+﻿@model ProyectoAnalisis2G8.Models.Partida_Diario
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
+
+    <div class="card shadow mb-4 w-50">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">
+                Borrar Partida de Diario
+                <button type="button" class="btn btn-warning" style="float: right;" onclick="location.href='@Url.Action("Index", "Partida_Diario")'">Regresar</button>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <h3>¿Seguro que quiere borrar la partida de diario  @Html.DisplayFor(model => model.correlativo)? </h3>
+            <div>
+             
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Correlativo
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.correlativo)
+                    </dd>
+
+                    <dt>
+                        Número de documento
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.num_documento)
+                    </dd>
+
+                    <dt>
+                        Fecha
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.fecha)
+                    </dd>
+
+                    <dt>
+                        Descripción
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.descripcion)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-danger" /> 
+                       
+                    </div>
+                }
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
