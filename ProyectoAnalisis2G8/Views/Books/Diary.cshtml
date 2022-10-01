@@ -2,24 +2,21 @@
 @{
     ViewBag.Title = "Diary";
 }
-
-<!-- Begin Page Content -->
 <div class="container-fluid">
-    <!-- Page Heading -->
+
     <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="m-0 font-weight-bold text-primary">
                 Partidas de Diario
-                <button type="button" class="btn btn-success" style="float: right;">Nueva Partida</button>
+                <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal" data-bs-target="#newAccItemModal">Nueva Partida</button>
             </h4>
         </div>
 
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered"
+            <div class="table-responsive ">
+                <table class="table table-bordered display"
                        id="dataTable"
                        width="100%"
                        cellspacing="0">
@@ -72,7 +69,134 @@
         </div>
     </div>
 </div>
-<!-- /.container-fluid -->
 
 
-      <!-- End of Main Content -->
+
+<!-- Modal -->
+<div class="modal fade" id="newAccItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nueva partida de diario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div id="wrapper">
+                            <div id="div1">
+                                <label for="date">Fecha:</label>
+                                <input type="date" id="dateAccItem" name="dateAccItem">
+                            </div>
+                            <div class="mb-3" id="div2">
+                                <label for="text">Documento:</label>
+                                <input type="text" id="docAccItem" name="docAccItem">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Descripción:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </div>
+                </div>
+                        <hr>
+                        <div class="card  mb-4">
+                            <div class="card-body">
+                                <div class="table-responsive ">
+                                    <table class="table table-bordered display"
+                                           id="dataTable"
+                                           width="100%"
+                                           cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Cuenta</th>
+                                                <th>Nombre de cuenta</th>
+                                                <th>Documento</th>
+                                                <th>Debe</th>
+                                                <th>Haber</th>
+                                                <th>Acción</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th><button type="button" class="btn btn-success" style="float: right;" id="newLine" onclick="$('#searchAccount').modal('show');">Nueva Linea</button></th>
+                                                <th></th>
+                                                <th>Total</th>
+                                                <th>11111</th>
+                                                <th>1111</th>
+                                                <th>
+                                                    <button type="button" class="btn btn-danger">Limpiar todo</button>
+                                                </th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>1.2.3.1</td>
+                                                <td>Caja</td>
+                                                <td>33</td>
+                                                <td>13131</td>
+                                                <td>31321312</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1.2.3.1</td>
+                                                <td>Caja</td>
+                                                <td>33</td>
+                                                <td>13131</td>
+                                                <td>31321312</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1.2.3.1</td>
+                                                <td>Caja</td>
+                                                <td>33</td>
+                                                <td>13131</td>
+                                                <td>31321312</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger">Eliminar</button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
+<div class="modal fade" id="searchAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar cuenta
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
