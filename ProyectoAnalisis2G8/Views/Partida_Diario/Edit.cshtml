@@ -7,6 +7,7 @@
 
 
 
+
 <div class="container-fluid">
 
     <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
@@ -25,122 +26,133 @@
                 @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Partidade de Diario @Html.DisplayFor(model => model.correlativo)</h4>
+                <h4>Partida de de Diario @Html.DisplayFor(model => model.correlativo)</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.id_partida)
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="correlativo">
-                        Correlativo
-                    </label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.correlativo, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.correlativo, "", new { @class = "text-danger" })
+                <div class="box" style=" display: flex; align-items: stretch; ">
+                    <div class="form-group">
+                        <label class="control-label col-md-14" for="correlativo">
+                            Correlativo
+                        </label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.correlativo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.correlativo, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="num_documento">
-                        Número de documento
-                    </label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.num_documento, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.num_documento, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="fecha">
-                        Fecha
-                    </label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="descripcion">
-                        Descripción
-                    </label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <hr>
-                <div class="card  mb-4">
-                    <div class="card-body">
-                        <div class="table-responsive ">
-                            <table class="table table-bordered display"
-                                   id="newAccItemDetails"
-                                   width="100%"
-                                   cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Cuenta</th>
-                                        <th>Nombre de cuenta</th>
-                                        <th>Documento</th>
-                                        <th>Debe</th>
-                                        <th>Haber</th>
-                                        <th>Acción</th>
-
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th><button type="button" class="btn btn-success" id="newLine" onclick="$('#searchAccount').modal('show');">Nueva Linea</button></th>
-                                        <th></th>
-                                        <th>Total</th>
-                                        <th><span id="totalDebe">0.00</span></th>
-                                        <th><span id="totalHaber">0.00</span></th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach (var item in ViewBag.detailsPartida)
-                                    {
-                                        <tr>
-                                            @foreach (var item2 in ViewBag.nomenclatura) {
-
-
-                                              if (item.id_cuenta == item2.id_cuenta) { 
-                                            <td> @item2.num_cuenta </td>
-                                            <td>@item2.nombre_cuenta </td>
-                                            }}
-                                            <td><input class="form-control text-box single-line" type="text" id="docNumber" name="fname"></td>
-                                            <td><input class="form-control text-box single-line" type="text" onchange="calculateDebe() " id="txtDebe" name="fname" value="@item.debe"></td>
-                                            <td><input class="form-control text-box single-line" type="text" id="txtHaber" onchange="calculateHaber()" name="fname" value="@item.haber"></td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger" onclick="deleteRow2(this)">Borrar</button>
-                                            </td>
-                                            <td style="display:none;">@item.id_cuenta</td>
-                                        </tr>
-
-                                    }
-
-                                    </tbody>
-                            </table>
+                    <div class="form-group">
+                        <label class="control-label" for="num_documento">
+                            Número de documento
+                        </label>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.num_documento, new { htmlAttributes = new { @class = "form-control", @required = "text", @maxlength = "6", @minlength = "4", @pattern = "\\d*" } })
+                            @Html.ValidationMessageFor(model => model.num_documento, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
+                <div class="box" style=" display: flex; align-items: stretch; ">
+                    <div class="form-group">
+                        <label class="control-label col-md-14" for="fecha">
+                            Fecha
+                        </label>
+                        <div class="col-md-11">
 
-                <div id="divHiddens">
+                            @{ DateTime someVariable = Convert.ToDateTime(@Model.fecha.ToString());
+                                var date = someVariable.ToString("yyyy-MM-dd");
 
-                </div>
+                            }
+                            <input value="@date" class="form-control text-box single-line" data-val="true" data-val-date="El campo fecha debe ser una fecha." id="fecha" name="fecha" onfocus="this.max=new Date().toISOString().split('T')[0]" required="required" type="date">
+                            @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-success" onclick="submit2(); return false;">Guardar</button>
+                    <div class="form-group">
+                        <label class="control-label col-md-14" for="descripcion">
+                            Descripción
+                        </label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
+                    <hr>
+                    <div class="card  mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive ">
+                                <table class="table table-bordered display"
+                                       id="newAccItemDetails"
+                                       width="100%"
+                                       cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Cuenta</th>
+                                            <th>Nombre de cuenta</th>
+                                            <th>Documento</th>
+                                            <th>Debe</th>
+                                            <th>Haber</th>
+                                            <th>Acción</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th><button type="button" class="btn btn-success" id="newLine" onclick="$('#searchAccount').modal('show');">Nueva Linea</button></th>
+                                            <th></th>
+                                            <th>Total</th>
+                                            <th><span id="totalDebe" >0.00</span></th>
+                                            <th><span id="totalHaber">0.00</span></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.detailsPartida)
+                                        {
+                                            <tr>
+                                                @foreach (var item2 in ViewBag.nomenclatura)
+                                                {
+
+
+                                                    if (item.id_cuenta == item2.id_cuenta)
+                                                    {
+                                                        <td> @item2.num_cuenta </td>
+                                                        <td>@item2.nombre_cuenta </td>
+                                                    }
+                                                }
+                                                <td><input class="form-control text-box single-line" type="text" id="docNumber" required name="fname"></td>
+                                                <td><input class="form-control text-box single-line" type="text" onchange="calculateDebe()" required data-type="currency" id="txtDebe" name="fname"  value="@item.debe"></td>
+                                                <td><input class="form-control text-box single-line" type="text" id="txtHaber" onchange="calculateHaber()" required data-type="currency" name="fname" value="@item.haber"></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" onclick="deleteRow2(this)">Borrar</button>
+                                                </td>
+                                                <td style="display:none;">@item.id_cuenta</td>
+                                            </tr>
+
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divHiddens">
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-success" onclick="submit2(); return false;">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                }
+
+
             </div>
-            }
-
-
-        </div>
     </div>
 </div>
 
@@ -228,7 +240,7 @@
 
     function addRow(idAcc, numAcc, nameAcc) {
 
-        $('#newAccItemDetails tbody').append('<tr><td>' + numAcc + '</td><td>' + nameAcc + '</td><td><input class="form-control text-box single-line" type="text" id="docNumber" name="fname"></td><td><input class="form-control text-box single-line" type="text" onchange="calculateDebe() "id="txtDebe" name="fname"></td><td><input class="form-control text-box single-line" type="text" id="txtHaber"  onchange="calculateHaber()" name="fname"></td><td> <button type="button" class="btn btn-danger" onclick="deleteRow2(this)">Borrar</button></td><td style="display:none;">' + idAcc + '</td></tr>');
+        $('#newAccItemDetails tbody').append('<tr><td>' + numAcc + '</td><td>' + nameAcc + '</td><td><input class="form-control text-box single-line" type="text" id="docNumber" required name="fname"></td><td><input class="form-control text-box single-line" type="text" onchange="calculateDebe()"  required data-type="currency"  "id="txtDebe" name="fname"></td><td><input class="form-control text-box single-line" type="text" id="txtHaber"  onchange="calculateHaber()" required data-type="currency" name="fname"></td><td> <button type="button" class="btn btn-danger" onclick="deleteRow2(this)">Borrar</button></td><td style="display:none;">' + idAcc + '</td></tr>');
     };
 
     function deleteRow2(obj) {
@@ -240,17 +252,24 @@
 
 
     function calculateHaber() {
+        formatCur();
 
         var table = document.getElementById("newAccItemDetails"), sumVal = 0;
 
         for (var i = 1; i < table.rows.length - 1; i++) {
-            if (!isNaN(parseFloat(table.rows[i].cells[4].getElementsByTagName("input")[0].value))) {
-                sumVal = sumVal + parseFloat(table.rows[i].cells[4].getElementsByTagName("input")[0].value);
+            var currency = table.rows[i].cells[4].getElementsByTagName("input")[0].value;
+            currency = currency.replaceAll(",", "");
+            currency = currency.replace("Q", "");
+            if (!isNaN(parseFloat(currency))) {
+                sumVal = sumVal + parseFloat(currency);
             }
         }
+        let dollarUSLocale = Intl.NumberFormat('en-US', {
 
+            minimumFractionDigits: 2
+        });
         sumVal = sumVal.toFixed(2)
-
+        sumVal = "Q" + dollarUSLocale.format(sumVal);
 
         document.getElementById("totalHaber").innerHTML = sumVal;
     };
@@ -258,15 +277,24 @@
 
     function calculateDebe() {
 
+        formatCur();
         var table = document.getElementById("newAccItemDetails"), sumVal = 0;
 
         for (var i = 1; i < table.rows.length - 1; i++) {
-            if (!isNaN(parseFloat(table.rows[i].cells[3].getElementsByTagName("input")[0].value))) {
-                sumVal = sumVal + parseFloat(table.rows[i].cells[3].getElementsByTagName("input")[0].value);
+            var currency = table.rows[i].cells[3].getElementsByTagName("input")[0].value;
+            currency = currency.replace("Q", "");
+            currency = currency.replaceAll(",", "");
+
+            if (!isNaN(parseFloat(currency))) {
+                sumVal = sumVal + parseFloat(currency);
             }
         }
-        sumVal = sumVal.toFixed(2)
+        let dollarUSLocale = Intl.NumberFormat('en-US', {
 
+            minimumFractionDigits: 2
+        });
+        sumVal = sumVal.toFixed(2)
+        sumVal = "Q" + dollarUSLocale.format(sumVal);
 
         document.getElementById("totalDebe").innerHTML = sumVal;
 
@@ -281,8 +309,10 @@
     }
     var num = 0;
     function generateList() {
+        document.getElementById('divHiddens').innerHTML = '';
         var table = document.getElementById("newAccItemDetails");
         for (var i = 1; i < table.rows.length - 1; i++) {
+            var currency = 0;
             num = i - 1;
             let DivHiddens = document.getElementById("divHiddens");
             let HiddenIndex = document.createElement("input");
@@ -296,10 +326,16 @@
             HiddenIdCuenta.value = table.rows[i].cells[6].innerHTML;
             HiddenIdCuenta.type = "hidden";
             HiddenDebe.name = "Detalle_Partida_Diario[" + num + "].debe";
-            HiddenDebe.value = parseFloat(table.rows[i].cells[3].getElementsByTagName("input")[0].value);
+            currency = table.rows[i].cells[3].getElementsByTagName("input")[0].value;
+            currency = currency.replaceAll(",", "");
+            currency = currency.replace("Q", "");
+            HiddenDebe.value = parseFloat(currency);
             HiddenDebe.type = "hidden";
             HiddenHaber.name = "Detalle_Partida_Diario[" + num + "].haber";
-            HiddenHaber.value = parseFloat(table.rows[i].cells[4].getElementsByTagName("input")[0].value);
+            currency = table.rows[i].cells[4].getElementsByTagName("input")[0].value;
+            currency = currency.replaceAll(",", "");
+            currency = currency.replace("Q", "");
+            HiddenHaber.value = parseFloat(currency);
             HiddenHaber.type = "hidden";
             DivHiddens.appendChild(HiddenIndex);
             DivHiddens.appendChild(HiddenIdCuenta);
@@ -310,5 +346,80 @@
 
 
     };
+
+
+
+
+    function formatCur() {
+
+        $("input[data-type='currency']").on({
+            keyup: function () {
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+
+        function formatNumber(n) {
+
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+
+        function formatCurrency(input, blur) {
+
+            var input_val = input.val();
+
+            if (input_val === "") { return; }
+            var original_len = input_val.length;
+
+            var caret_pos = input.prop("selectionStart");
+
+            if (input_val.indexOf(".") >= 0) {
+
+
+                var decimal_pos = input_val.indexOf(".");
+
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                left_side = formatNumber(left_side);
+
+                right_side = formatNumber(right_side);
+
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                right_side = right_side.substring(0, 2);
+
+                input_val = "Q" + left_side + "." + right_side;
+
+            } else {
+
+                input_val = formatNumber(input_val);
+                input_val = "Q" + input_val;
+
+                if (blur === "blur") {
+                    input_val += ".00";
+                }
+            }
+
+            input.val(input_val);
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        formatCur();
+        calculateDebe();
+        calculateHaber();
+    }, false);
 
 </script>

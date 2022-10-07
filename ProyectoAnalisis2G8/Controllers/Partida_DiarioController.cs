@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoAnalisis2G8.Models;
+using Rotativa;
 
 namespace ProyectoAnalisis2G8.Controllers
 {
@@ -29,6 +30,7 @@ namespace ProyectoAnalisis2G8.Controllers
             }
             Partida_Diario partida_Diario = db.Partida_Diario.Find(id);
             ViewBag.detailsPartida = db.Detalle_Partida_Diario.Where(a => a.id_partida == id).ToList();
+            ViewBag.nomenclatura = db.Nomenclatura.ToList();
             if (partida_Diario == null)
             {
                 return HttpNotFound();
@@ -62,9 +64,9 @@ namespace ProyectoAnalisis2G8.Controllers
                 partida_objeto.descripcion = partida_Diario.descripcion;
                 db.Partida_Diario.Add(partida_objeto);
                 db.SaveChanges();
-               
-            }
+     
 
+            }
             foreach(var item in partida_Diario.Detalle_Partida_Diario)
             {
                 Detalle_Partida_Diario detalleObj=new Detalle_Partida_Diario();
@@ -76,9 +78,27 @@ namespace ProyectoAnalisis2G8.Controllers
                 db.SaveChanges();
                
             }
-
+            partida_objeto.correlativo = "PD-" + @Convert.ToDateTime(partida_objeto.fecha).ToString("ddMMyy") + "-" + partida_objeto.id_partida;
+            db.Entry(partida_objeto).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetRange(string startDate, string endDate)
+        {
+            DateTime? startdate = Convert.ToDateTime(startDate);
+            DateTime? enddate = Convert.ToDateTime(endDate);
+            List<Partida_Diario> rangeListPartidaD = db.Partida_Diario
+                .Where(x => x.fecha >= startdate && x.fecha <= enddate)
+                .ToList();
+
+            ViewBag.rangeListPartidaD = rangeListPartidaD;
+            return RedirectToAction("Index");
+        }
+
+
 
         // GET: Partida_Diario/Edit/5
         public ActionResult Edit(int? id)
@@ -185,5 +205,35 @@ namespace ProyectoAnalisis2G8.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult Report(int? id) {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Partida_Diario partida_Diario = db.Partida_Diario.Find(id);
+            ViewBag.detailsPartida = db.Detalle_Partida_Diario.Where(a => a.id_partida == id).ToList();
+            ViewBag.nomenclatura = db.Nomenclatura.ToList();
+            if (partida_Diario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(partida_Diario);
+
+           
+        }
+
+
+        public ActionResult Print(int? id, string correlativo)
+        {
+            return new ActionAsPdf("Report", new { id = id })
+            {
+                FileName = correlativo+".pdf"
+            };
+
+        }
+
     }
 }

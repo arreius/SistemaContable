@@ -1,0 +1,131 @@
+﻿@model ProyectoAnalisis2G8.Models.Partida_Diario
+
+@{
+    ViewBag.Title = "Report";
+    Layout = null;
+}
+@{double totalDebe, totalHaber; totalDebe = 0.0; totalHaber = 0.0;}
+<div class="container-fluid">
+
+    @{ DateTime someVariable = Convert.ToDateTime(@Model.fecha.ToString());
+        var date = someVariable.ToString("dd/MM/yyyy");
+
+    }
+  
+    <style>
+
+        table, th, td {
+            border: 1px solid;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+    </style>
+
+    <div class="card shadow mb-4 w-75">
+        <div class="card-body">
+            <div>
+                <h1>Partida de diario @Html.DisplayFor(model => model.correlativo)</h1>
+               
+                <hr />
+                <dl class="dl-horizontal">
+                    <h2> Fecha @date</h2>
+                    <h3>
+                    <dt>
+                        Número de documento: @Html.DisplayFor(model => model.num_documento)
+                    </dt>
+
+                    <dt>
+                        Descripción
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.descripcion)
+                    </dd>
+                    </h3>
+                </dl>
+            </div>
+            <hr />
+            <div class="card-body">
+                <div class="table ">
+                    <table 
+                           id="newAccItemDetails"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID de Cuenta
+                                </th>
+                                <th>
+                                    Número de cuenta
+                                </th>
+                                <th>
+                                    Nombre de cuenta
+                                </th>
+
+                                <th>
+                                    Debe
+                                </th>
+                                <th>
+                                    Haber
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in ViewBag.detailsPartida)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.id_cuenta
+                                    </td>
+                                    @foreach (var item2 in ViewBag.nomenclatura)
+                                    {
+
+
+                                        if (item.id_cuenta == item2.id_cuenta)
+                                        {
+                                            <td> @item2.num_cuenta </td>
+                                            <td>@item2.nombre_cuenta </td>
+                                        }
+                                    }
+
+
+
+                                    <td>
+                                        Q @String.Format("{0:#,##0.00}", item.debe)
+
+                                    </td>
+                                    <td>
+                                        Q @String.Format("{0:#,##0.00}", item.haber)
+                                    </td>
+
+                                </tr>
+                                totalDebe = totalDebe + Convert.ToDouble(item.debe);
+                                totalHaber = totalHaber + Convert.ToDouble(item.haber);
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Total</th>
+                                <th><span id="totalDebe"> Q @String.Format("{0:#,##0.00}", totalDebe)</span></th>
+                                <th><span id="totalHaber"> Q @String.Format("{0:#,##0.00}", totalHaber)</span></th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+

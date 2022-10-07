@@ -8,12 +8,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <link href="~/Theme/vendor/datatables/dataTables.bootstrap4.min.css"
-          rel="stylesheet" />
+
     <link rel="stylesheet" href="~/styles/globalStyle.css">
     <link rel="stylesheet" href="~/styles/StyleSheet1.css">
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 </head>
 <body>
@@ -68,19 +68,21 @@
             <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
     <!-- Page level plugins -->
-    <script src="~/Theme/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Theme/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
     <!-- Page level custom scripts -->
-    <script src="~/Theme/js/demo/datatables-demo.js"></script>
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
 
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/sorting/datetime-moment.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
         $('#dataTable').dataTable({
             "language": {
@@ -95,7 +97,7 @@
                 }
             }
         });
-  
+
     </script>
 
     <script>

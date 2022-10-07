@@ -10,7 +10,7 @@
 
     <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
 
-    <div class="card shadow mb-4 w-50">
+    <div class="card shadow mb-4 w-75">
         <div class="card-header py-3">
             <h4 class="m-0 font-weight-bold text-primary">
                 Detalle 
@@ -44,7 +44,11 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.fecha)
+                        @{ DateTime someVariable = Convert.ToDateTime(@Model.fecha.ToString());
+                            var date = someVariable.ToString("dd/MM/yyyy");
+
+                        }
+                        @date
                     </dd>
 
                     <dt>
@@ -61,43 +65,68 @@
             <div class="card-body">
                 <div class="table-responsive ">
                     <table class="table table-bordered display"
-                           id="accItemTable"
+                           id="newAccItemDetails"
                            width="100%"
                            cellspacing="0">
                         <thead>
                             <tr>
                                 <th>
-                                    Cuenta
+                                    ID de Cuenta
+                                </th>
+                                <th>
+                                    Número de cuenta
                                 </th>
                                 <th>
                                     Nombre de cuenta
                                 </th>
+                               
                                 <th>
                                     Debe
                                 </th>
                                 <th>
                                     Haber
                                 </th>
-                               
+
                             </tr>
                         </thead>
-                        <tbody>
+                        <tfoot>
+                            <tr>
+                                                                <th></th>
+                                <th></th>
+                                <th>Total</th>
+                                <th><span id="totalDebe">0.00</span></th>
+                                <th><span id="totalHaber">0.00</span></th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody >
                             @foreach (var item in ViewBag.detailsPartida)
                             {
                                 <tr>
                                     <td>
                                         @item.id_cuenta
                                     </td>
+                                    @foreach (var item2 in ViewBag.nomenclatura)
+                                    {
+
+
+                                        if (item.id_cuenta == item2.id_cuenta)
+                                        {
+                                            <td> @item2.num_cuenta </td>
+                                            <td>@item2.nombre_cuenta </td>
+                                        }
+                                    }
+
+
+                           
                                     <td>
-                                        @item.id_partida
+                                        Q @String.Format("{0:#,##0.00}", item.debe)
+
                                     </td>
                                     <td>
-                                        @item.debe
+                                        Q @String.Format("{0:#,##0.00}", item.haber)
                                     </td>
-                                    <td>
-                                       @item.haber
-                                    </td>
-                                
+
                                 </tr>
                             }
 
@@ -111,6 +140,7 @@
             <p>
 
                 <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit", "Partida_Diario", new { id = Model.id_partida })'">Editar</button>
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Print", "Partida_Diario", new { id = Model.id_partida, correlativo=Model.correlativo })'">Descargar</button>
             </p>
 
 
@@ -122,3 +152,63 @@
 
 
 
+<script>
+
+
+    function calculateHaber() {
+       // formatCur();
+
+        var table = document.getElementById("newAccItemDetails"), sumVal = 0;
+
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            var currency = table.rows[i].cells[4].innerHTML;
+            currency = currency.replaceAll(",", "");
+            currency = currency.replace("Q", "");
+            if (!isNaN(parseFloat(currency))) {
+                sumVal = sumVal + parseFloat(currency);
+            }
+        }
+        let dollarUSLocale = Intl.NumberFormat('en-US', {
+
+            minimumFractionDigits: 2
+        });
+        sumVal = sumVal.toFixed(2)
+        sumVal = "Q" + dollarUSLocale.format(sumVal);
+
+        document.getElementById("totalHaber").innerHTML = sumVal;
+    };
+
+
+    function calculateDebe() {
+
+     // formatCur();
+        var table = document.getElementById("newAccItemDetails"), sumVal = 0;
+
+        for (var i = 1; i < table.rows.length - 1; i++) {
+            var currency = table.rows[i].cells[3].innerHTML;
+            currency = currency.replace("Q", "");
+            currency = currency.replaceAll(",", "");
+
+            if (!isNaN(parseFloat(currency))) {
+                sumVal = sumVal + parseFloat(currency);
+            }
+        }
+        let dollarUSLocale = Intl.NumberFormat('en-US', {
+
+            minimumFractionDigits: 2
+        });
+        sumVal = sumVal.toFixed(2)
+        sumVal = "Q" + dollarUSLocale.format(sumVal);
+
+        document.getElementById("totalDebe").innerHTML = sumVal;
+
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        calculateDebe();
+        calculateHaber();
+    }, false);
+
+
+</script>

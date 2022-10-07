@@ -11,7 +11,8 @@ namespace ProyectoAnalisis2G8.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Partida_Diario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +20,11 @@ namespace ProyectoAnalisis2G8.Models
         {
             this.Detalle_Partida_Diario = new List<Detalle_Partida_Diario>();
         }
-    
+
         public int id_partida { get; set; }
         public string correlativo { get; set; }
         public string num_documento { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+       public Nullable<System.DateTime> fecha { get; set; }
         public string descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
