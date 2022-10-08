@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ProyectoAnalisis2G8.Models.Partida_Diario>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">
+                Partidas de Diario
+                <button type="button" class="btn btn-success" style="float: right;"   onclick="location.href='@Url.Action("Create", "Partida_Diario")'">Nueva Partida</button>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive ">
+                <table class="table table-bordered display"
+                       id="accItemTable"
+                       width="100%"
+                       cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID Partida
+                            </th>
+                            <th>
+                                Correlativo
+                            </th>
+                            <th>
+                                Número de documento
+                            </th>
+                            <th>
+                                Fecha
+                            </th>
+                            <th>
+                               Descripción
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.id_partida)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.correlativo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.num_documento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fecha)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.descripcion)
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Partida_Diario", new { id = item.id_partida })'">Editar</button>
+                                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Partida_Diario", new { id = item.id_partida })'">Detalles</button>
+                                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Partida_Diario", new { id = item.id_partida })'">Borrar</button>
+                                    
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

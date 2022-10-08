@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SistemaContableModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Detalle_Partida_Diario">
+          <Key>
+            <PropertyRef Name="id_cuenta" />
+            <PropertyRef Name="id_partida" />
+          </Key>
+          <Property Name="id_cuenta" Type="int" Nullable="false" />
+          <Property Name="id_partida" Type="int" Nullable="false" />
+          <Property Name="debe" Type="float" />
+          <Property Name="haber" Type="float" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="id_cuenta" />
+          </Key>
+          <Property Name="id_cuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="detalle" Type="nvarchar(max)" />
+          <Property Name="cantidad" Type="float" />
+        </EntityType>
+        <EntityType Name="Nomenclatura">
+          <Key>
+            <PropertyRef Name="id_cuenta" />
+          </Key>
+          <Property Name="id_cuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="num_cuenta" Type="nvarchar(max)" />
+          <Property Name="nombre_cuenta" Type="nvarchar(max)" />
+          <Property Name="descripcion" Type="nvarchar(max)" />
+          <Property Name="tipo_cuenta" Type="nvarchar(max)" />
+          <Property Name="nivel" Type="int" />
+        </EntityType>
+        <EntityType Name="Partida_Diario">
+          <Key>
+            <PropertyRef Name="id_partida" />
+          </Key>
+          <Property Name="id_partida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correlativo" Type="nvarchar(max)" />
+          <Property Name="num_documento" Type="nvarchar(max)" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="descripcion" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="nvarchar(max)" />
+          <Property Name="contraseña" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_DETALLE_NOMENCLATURA">
+          <End Role="Nomenclatura" Type="Self.Nomenclatura" Multiplicity="1" />
+          <End Role="Detalle_Partida_Diario" Type="Self.Detalle_Partida_Diario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nomenclatura">
+              <PropertyRef Name="id_cuenta" />
+            </Principal>
+            <Dependent Role="Detalle_Partida_Diario">
+              <PropertyRef Name="id_cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_PARTIDA">
+          <End Role="Partida_Diario" Type="Self.Partida_Diario" Multiplicity="1" />
+          <End Role="Detalle_Partida_Diario" Type="Self.Detalle_Partida_Diario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partida_Diario">
+              <PropertyRef Name="id_partida" />
+            </Principal>
+            <Dependent Role="Detalle_Partida_Diario">
+              <PropertyRef Name="id_partida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaContableModelStoreContainer">
+          <EntitySet Name="Detalle_Partida_Diario" EntityType="Self.Detalle_Partida_Diario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nomenclatura" EntityType="Self.Nomenclatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partida_Diario" EntityType="Self.Partida_Diario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DETALLE_NOMENCLATURA" Association="Self.FK_DETALLE_NOMENCLATURA">
+            <End Role="Nomenclatura" EntitySet="Nomenclatura" />
+            <End Role="Detalle_Partida_Diario" EntitySet="Detalle_Partida_Diario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_PARTIDA" Association="Self.FK_DETALLE_PARTIDA">
+            <End Role="Partida_Diario" EntitySet="Partida_Diario" />
+            <End Role="Detalle_Partida_Diario" EntitySet="Detalle_Partida_Diario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemaContableModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Detalle_Partida_Diario">
+          <Key>
+            <PropertyRef Name="id_cuenta" />
+            <PropertyRef Name="id_partida" />
+          </Key>
+          <Property Name="id_cuenta" Type="Int32" Nullable="false" />
+          <Property Name="id_partida" Type="Int32" Nullable="false" />
+          <Property Name="debe" Type="Double" />
+          <Property Name="haber" Type="Double" />
+          <NavigationProperty Name="Nomenclatura" Relationship="Self.FK_DETALLE_NOMENCLATURA" FromRole="Detalle_Partida_Diario" ToRole="Nomenclatura" />
+          <NavigationProperty Name="Partida_Diario" Relationship="Self.FK_DETALLE_PARTIDA" FromRole="Detalle_Partida_Diario" ToRole="Partida_Diario" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="id_cuenta" />
+          </Key>
+          <Property Name="id_cuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cantidad" Type="Double" />
+        </EntityType>
+        <EntityType Name="Nomenclatura">
+          <Key>
+            <PropertyRef Name="id_cuenta" />
+          </Key>
+          <Property Name="id_cuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="num_cuenta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nombre_cuenta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tipo_cuenta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nivel" Type="Int32" />
+          <NavigationProperty Name="Detalle_Partida_Diario" Relationship="Self.FK_DETALLE_NOMENCLATURA" FromRole="Nomenclatura" ToRole="Detalle_Partida_Diario" />
+        </EntityType>
+        <EntityType Name="Partida_Diario">
+          <Key>
+            <PropertyRef Name="id_partida" />
+          </Key>
+          <Property Name="id_partida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correlativo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="num_documento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Detalle_Partida_Diario" Relationship="Self.FK_DETALLE_PARTIDA" FromRole="Partida_Diario" ToRole="Detalle_Partida_Diario" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contraseña" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DETALLE_NOMENCLATURA">
+          <End Role="Nomenclatura" Type="Self.Nomenclatura" Multiplicity="1" />
+          <End Role="Detalle_Partida_Diario" Type="Self.Detalle_Partida_Diario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nomenclatura">
+              <PropertyRef Name="id_cuenta" />
+            </Principal>
+            <Dependent Role="Detalle_Partida_Diario">
+              <PropertyRef Name="id_cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_PARTIDA">
+          <End Role="Partida_Diario" Type="Self.Partida_Diario" Multiplicity="1" />
+          <End Role="Detalle_Partida_Diario" Type="Self.Detalle_Partida_Diario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partida_Diario">
+              <PropertyRef Name="id_partida" />
+            </Principal>
+            <Dependent Role="Detalle_Partida_Diario">
+              <PropertyRef Name="id_partida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaContableEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Detalle_Partida_Diario" EntityType="Self.Detalle_Partida_Diario" />
+          <EntitySet Name="Inventario" EntityType="Self.Inventario" />
+          <EntitySet Name="Nomenclatura" EntityType="Self.Nomenclatura" />
+          <EntitySet Name="Partida_Diario" EntityType="Self.Partida_Diario" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_DETALLE_NOMENCLATURA" Association="Self.FK_DETALLE_NOMENCLATURA">
+            <End Role="Nomenclatura" EntitySet="Nomenclatura" />
+            <End Role="Detalle_Partida_Diario" EntitySet="Detalle_Partida_Diario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_PARTIDA" Association="Self.FK_DETALLE_PARTIDA">
+            <End Role="Partida_Diario" EntitySet="Partida_Diario" />
+            <End Role="Detalle_Partida_Diario" EntitySet="Detalle_Partida_Diario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemaContableModelStoreContainer" CdmEntityContainer="SistemaContableEntities">
+          <EntitySetMapping Name="Detalle_Partida_Diario">
+            <EntityTypeMapping TypeName="SistemaContableModel.Detalle_Partida_Diario">
+              <MappingFragment StoreEntitySet="Detalle_Partida_Diario">
+                <ScalarProperty Name="id_cuenta" ColumnName="id_cuenta" />
+                <ScalarProperty Name="id_partida" ColumnName="id_partida" />
+                <ScalarProperty Name="debe" ColumnName="debe" />
+                <ScalarProperty Name="haber" ColumnName="haber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventario">
+            <EntityTypeMapping TypeName="SistemaContableModel.Inventario">
+              <MappingFragment StoreEntitySet="Inventario">
+                <ScalarProperty Name="id_cuenta" ColumnName="id_cuenta" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nomenclatura">
+            <EntityTypeMapping TypeName="SistemaContableModel.Nomenclatura">
+              <MappingFragment StoreEntitySet="Nomenclatura">
+                <ScalarProperty Name="id_cuenta" ColumnName="id_cuenta" />
+                <ScalarProperty Name="num_cuenta" ColumnName="num_cuenta" />
+                <ScalarProperty Name="nombre_cuenta" ColumnName="nombre_cuenta" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="tipo_cuenta" ColumnName="tipo_cuenta" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partida_Diario">
+            <EntityTypeMapping TypeName="SistemaContableModel.Partida_Diario">
+              <MappingFragment StoreEntitySet="Partida_Diario">
+                <ScalarProperty Name="id_partida" ColumnName="id_partida" />
+                <ScalarProperty Name="correlativo" ColumnName="correlativo" />
+                <ScalarProperty Name="num_documento" ColumnName="num_documento" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SistemaContableModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="SistemaContableModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

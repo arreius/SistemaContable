@@ -1,0 +1,124 @@
+﻿@model ProyectoAnalisis2G8.Models.Partida_Diario
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Libro de diario</h1>
+
+    <div class="card shadow mb-4 w-50">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">
+                Detalle 
+                <button type="button" class="btn btn-warning" style="float: right;" onclick="location.href='@Url.Action("Index", "Partida_Diario")'">Regresar</button>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <div>
+                <h4>Detalles de la partida de diario @Html.DisplayFor(model => model.correlativo)</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Correlativo
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.correlativo)
+                    </dd>
+
+                    <dt>
+                        Número de documento
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.num_documento)
+                    </dd>
+
+                    <dt>
+                        Fecha
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.fecha)
+                    </dd>
+
+                    <dt>
+                        Descripción
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.descripcion)
+                    </dd>
+
+                </dl>
+            </div>
+            <hr />
+            <div class="card-body">
+                <div class="table-responsive ">
+                    <table class="table table-bordered display"
+                           id="accItemTable"
+                           width="100%"
+                           cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Cuenta
+                                </th>
+                                <th>
+                                    Nombre de cuenta
+                                </th>
+                                <th>
+                                    Debe
+                                </th>
+                                <th>
+                                    Haber
+                                </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.detailsPartida)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.id_cuenta
+                                    </td>
+                                    <td>
+                                        @item.id_partida
+                                    </td>
+                                    <td>
+                                        @item.debe
+                                    </td>
+                                    <td>
+                                       @item.haber
+                                    </td>
+                                
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <p>
+
+                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit", "Partida_Diario", new { id = Model.id_partida })'">Editar</button>
+            </p>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -10,66 +10,15 @@
         <div class="card-header py-3">
             <h4 class="m-0 font-weight-bold text-primary">
                 Partidas de Diario
-                <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal" data-bs-target="#newAccItemModal">Nueva Partida</button>
+
             </h4>
         </div>
 
         <div class="card-body">
-            <div class="table-responsive ">
-                <table class="table table-bordered display"
-                       id="dataTable"
-                       width="100%"
-                       cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Número</th>
-                            <th>Descripcción</th>
-                            <th>Documento</th>
-                            <th>Fecha</th>
-                            <th>Total</th>
-                            <th>Acción</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>System Architect</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Ver</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Accountant</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Ver</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Junior Technical Author</td>
-                            <td>66</td>
-                            <td>2009/01/12</td>
-                            <td>$86,000</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Ver</button>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
-
 
 
 <!-- Modal -->
@@ -99,96 +48,72 @@
                         </div>
                     </div>
                 </div>
-                        <hr>
-                        <div class="card  mb-4">
-                            <div class="card-body">
-                                <div class="table-responsive ">
-                                    <table class="table table-bordered display"
-                                           id="dataTable"
-                                           width="100%"
-                                           cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Cuenta</th>
-                                                <th>Nombre de cuenta</th>
-                                                <th>Documento</th>
-                                                <th>Debe</th>
-                                                <th>Haber</th>
-                                                <th>Acción</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th><button type="button" class="btn btn-success" style="float: right;" id="newLine" onclick="$('#searchAccount').modal('show');">Nueva Linea</button></th>
-                                                <th></th>
-                                                <th>Total</th>
-                                                <th>11111</th>
-                                                <th>1111</th>
-                                                <th>
-                                                    <button type="button" class="btn btn-danger">Limpiar todo</button>
-                                                </th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr>
-                                                <td>1.2.3.1</td>
-                                                <td>Caja</td>
-                                                <td>33</td>
-                                                <td>13131</td>
-                                                <td>31321312</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Eliminar</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1.2.3.1</td>
-                                                <td>Caja</td>
-                                                <td>33</td>
-                                                <td>13131</td>
-                                                <td>31321312</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Eliminar</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1.2.3.1</td>
-                                                <td>Caja</td>
-                                                <td>33</td>
-                                                <td>13131</td>
-                                                <td>31321312</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Eliminar</button>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-            </div>
-</div>
-
-
-<div class="modal fade" id="searchAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar cuenta
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card mb-4">
+                <hr>
+                <div class="card  mb-4">
                     <div class="card-body">
-                        
+                        <div class="table-responsive ">
+                            <table class="table table-bordered display"
+                                   id="dataTable"
+                                   width="100%"
+                                   cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Cuenta</th>
+                                        <th>Nombre de cuenta</th>
+                                        <th>Documento</th>
+                                        <th>Debe</th>
+                                        <th>Haber</th>
+                                        <th>Acción</th>
+
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th><button type="button" class="btn btn-success" style="float: right;" id="newLine" onclick="$('#searchAccount').modal('show');">Nueva Linea</button></th>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th>11111</th>
+                                        <th>1111</th>
+                                        <th>
+                                            <button type="button" class="btn btn-danger">Limpiar todo</button>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr>
+                                        <td>1.2.3.1</td>
+                                        <td>Caja</td>
+                                        <td>33</td>
+                                        <td>13131</td>
+                                        <td>31321312</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.3.1</td>
+                                        <td>Caja</td>
+                                        <td>33</td>
+                                        <td>13131</td>
+                                        <td>31321312</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.3.1</td>
+                                        <td>Caja</td>
+                                        <td>33</td>
+                                        <td>13131</td>
+                                        <td>31321312</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger">Eliminar</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,3 +125,27 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="searchAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Agregar cuenta
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-4">
+                    <div class="card-body">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

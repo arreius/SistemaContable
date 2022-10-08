@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoAnalisis2G8.Models;
 
 namespace ProyectoAnalisis2G8.Controllers
 {
@@ -27,5 +28,7 @@ namespace ProyectoAnalisis2G8.Controllers
         {
             return View();
         }
+
+  
     }
 }

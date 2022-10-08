@@ -33,7 +33,7 @@
                             Libros
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/Books/Diary">Diario</a></li>
+                            <li><a class="dropdown-item" href="/Partida_Diario/Index">Diario</a></li>
                             <li><a class="dropdown-item" href="/Books/Mayor">Mayor</a></li>
                             <li><a class="dropdown-item" href="/Books/FinancialStatus">Estados Financieros</a></li>
                             <li><a class="dropdown-item" href="/Books/AnnualAccounts">Cuentas Anuales</a></li>
@@ -45,7 +45,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/Records/Inventory">Inventario</a></li>
-                            <li><a class="dropdown-item" href="/Records/Nomenclature">Nomenclatura Contable</a></li>
+                            <li><a class="dropdown-item" href="/Nomenclaturas/Index">Nomenclatura Contable</a></li>
                             <li><a class="dropdown-item" href="/Records/CostCenter">Centro de costos</a></li>
                         </ul>
                     </li>
@@ -83,6 +83,23 @@
 
     <script>
         $('#dataTable').dataTable({
+            "language": {
+                "search": "Buscar",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+  
+    </script>
+
+    <script>
+        $('#accItemTable').dataTable({
             "language": {
                 "search": "Buscar",
                 "lengthMenu": "Mostrar _MENU_ entradas",

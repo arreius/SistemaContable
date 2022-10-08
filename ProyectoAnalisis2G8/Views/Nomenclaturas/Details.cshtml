@@ -1,0 +1,80 @@
+﻿@model ProyectoAnalisis2G8.Models.Nomenclatura
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Nomenclatura Contable</h1>
+
+    <div class="card shadow mb-4 w-50">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">
+                Detalle
+                <button type="button" class="btn btn-warning" style="float: right;" onclick="location.href='@Url.Action("Index", "Nomenclaturas")'">Regresar</button>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <div>
+                <h4>Detalles de la cuenta @Html.DisplayFor(model => model.num_cuenta)</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Número de cuenta
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.num_cuenta)
+                    </dd>
+
+                    <dt>
+                        Nombre de cuenta
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.nombre_cuenta)
+                    </dd>
+
+                    <dt>
+                        Descripción
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.descripcion)
+                    </dd>
+
+                    <dt>
+                        Tipo de cuenta
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tipo_cuenta)
+                    </dd>
+
+                    <dt>
+                       Nivel
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.nivel)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+
+                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit", "Nomenclaturas", new { id = Model.id_cuenta })'">Editar</button>
+            </p>
+
+
+
+        </div>
+    </div>
+</div>
+
+
