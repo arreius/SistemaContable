@@ -29,7 +29,6 @@ namespace ProyectoAnalisis2G8.Models
         public virtual DbSet<Inventario> Inventario { get; set; }
         public virtual DbSet<Nomenclatura> Nomenclatura { get; set; }
         public virtual DbSet<Partida_Diario> Partida_Diario { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

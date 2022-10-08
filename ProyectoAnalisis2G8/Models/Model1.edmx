@@ -44,16 +44,6 @@
           <Property Name="fecha" Type="date" />
           <Property Name="descripcion" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id_usuario" />
@@ -91,7 +81,6 @@
           <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nomenclatura" EntityType="Self.Nomenclatura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partida_Diario" EntityType="Self.Partida_Diario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DETALLE_NOMENCLATURA" Association="Self.FK_DETALLE_NOMENCLATURA">
             <End Role="Nomenclatura" EntitySet="Nomenclatura" />
@@ -150,16 +139,6 @@
           <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Detalle_Partida_Diario" Relationship="Self.FK_DETALLE_PARTIDA" FromRole="Partida_Diario" ToRole="Detalle_Partida_Diario" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id_usuario" />
@@ -197,7 +176,6 @@
           <EntitySet Name="Inventario" EntityType="Self.Inventario" />
           <EntitySet Name="Nomenclatura" EntityType="Self.Nomenclatura" />
           <EntitySet Name="Partida_Diario" EntityType="Self.Partida_Diario" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK_DETALLE_NOMENCLATURA" Association="Self.FK_DETALLE_NOMENCLATURA">
             <End Role="Nomenclatura" EntitySet="Nomenclatura" />
@@ -253,17 +231,6 @@
                 <ScalarProperty Name="num_documento" ColumnName="num_documento" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SistemaContableModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

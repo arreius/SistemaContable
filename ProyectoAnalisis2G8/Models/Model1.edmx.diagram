@@ -4,13 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="350cd67bf6c44496a4f14f15155b08bb" Name="Diagram1">
+      <Diagram DiagramId="711475a17c0b4785b9156c9f60a592d8" Name="Diagram1">
         <EntityTypeShape EntityType="SistemaContableModel.Detalle_Partida_Diario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaContableModel.Inventario" Width="1.5" PointX="9.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaContableModel.Inventario" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaContableModel.Nomenclatura" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaContableModel.Partida_Diario" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaContableModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SistemaContableModel.Usuarios" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaContableModel.Usuarios" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="SistemaContableModel.FK_DETALLE_NOMENCLATURA" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaContableModel.FK_DETALLE_PARTIDA" ManuallyRouted="false" />
       </Diagram>

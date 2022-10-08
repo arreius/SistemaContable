@@ -17,7 +17,7 @@ namespace ProyectoAnalisis2G8.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Partida_Diario()
         {
-            this.Detalle_Partida_Diario = new List<Detalle_Partida_Diario>();
+            this.Detalle_Partida_Diario = new HashSet<Detalle_Partida_Diario>();
         }
     
         public int id_partida { get; set; }
@@ -27,6 +27,6 @@ namespace ProyectoAnalisis2G8.Models
         public string descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual List<Detalle_Partida_Diario> Detalle_Partida_Diario { get; set; }
+        public virtual ICollection<Detalle_Partida_Diario> Detalle_Partida_Diario { get; set; }
     }
 }
